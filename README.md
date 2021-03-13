@@ -4,11 +4,17 @@ This is a repository dedicated to the course named above. This repository will c
 
 ## State of the project
 
-"""
+```
 Soon.
-"""
+```
+
+
 
 ## Commits
 
 ### 2020.03.13,16:10: Init
 > After some time, this repository started with a basic setup. Containes hw1 start.
+
+### 2020/03/13/18:22: hw1 finished almost
+> There some issus with the given codes. After a couple hourse of testing and additional research, the -std=c++11 flag solved most of the issues. The code works right now.
+> NOTE: more polished code could take arguments and use those for setting up precision, tolerance and printed precision.

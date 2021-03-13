@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Win32-MSBuild"
+	BuildStamp="20210313-1627-Experimental"
+	Name="SZABÓ-PC"
+	Generator="ctest-3.14.4"
+	CompilerName="D:/Adam/MS VISUAL STUDIO/IDE/VC/Tools/MSVC/14.20.27508/bin/Hostx64/x64/cl.exe"
+	CompilerVersion="19.20.27508.1"
+	OSName="Windows"
+	Hostname="Szab[NON-UTF-8-BYTE-0xF3]-PC"
+	OSRelease="7"
+	OSVersion="Service Pack 1 (Build 7601)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="12"
+	ProcessorCacheSize="-1"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="16139"
+	TotalPhysicalMemory="8070"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="3092"
+	>
+	<Testing>
+		<StartDateTime>Mar 13 17:42 K[NON-UTF-8-BYTE-0xF6]z[NON-UTF-8-BYTE-0xE9]p-eur[NON-UTF-8-BYTE-0xF3]pai t[NON-UTF-8-BYTE-0xE9]li ido</StartDateTime>
+		<StartTestTime>1615653741</StartTestTime>
+		<TestList/>
+		<EndDateTime>Mar 13 17:42 K[NON-UTF-8-BYTE-0xF6]z[NON-UTF-8-BYTE-0xE9]p-eur[NON-UTF-8-BYTE-0xF3]pai t[NON-UTF-8-BYTE-0xE9]li ido</EndDateTime>
+		<EndTestTime>1615653741</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
