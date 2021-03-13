@@ -8,11 +8,9 @@ This is a repository dedicated to the course named above. This repository will c
 Soon.
 ```
 
-
-
 ## Commits
 
-### 2020.03.13,16:10: Init
+### 2020/03/13,16:10: Init
 > After some time, this repository started with a basic setup. Containes hw1 start.
 
 ### 2020/03/13/18:22: hw1 finished almost
