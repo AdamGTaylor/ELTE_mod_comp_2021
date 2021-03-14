@@ -22,7 +22,7 @@ template<typename F, typename DF, typename X, typename E, typename TOL> X integr
     while (abs(df(x0)) > eps){
         if(abs(x0-x1) < tol) break;
         x0 = x1;
-        x1 = x0 - f(x0)/df(x0);
+        x1 = x0 - f(x0)/df(x0);ű
     }
     return x1;
 }
