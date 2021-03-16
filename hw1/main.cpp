@@ -23,6 +23,7 @@ template<typename F, typename DF, typename X, typename E, typename TOL> X integr
         if(abs(x0-x1) < tol) break;
         x0 = x1;
         x1 = x0 - f(x0)/df(x0);
+        
     }
     return x1;
 }
