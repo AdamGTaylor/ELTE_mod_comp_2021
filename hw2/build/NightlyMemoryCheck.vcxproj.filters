@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Adam\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\build\CMakeFiles\145adbb06912526b2f79de61225c7d2a\NightlyMemoryCheck.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\Adam\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\Adam\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\build\CMakeFiles\NightlyMemoryCheck" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{9404D45C-7E83-37D6-84E7-B465C3C83D56}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
