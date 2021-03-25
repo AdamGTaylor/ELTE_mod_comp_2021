@@ -28,3 +28,7 @@ Soon.
 > What's the first difference between struct and class in C++? Their variables visibility.
 > For completition I will use a struct, but it can be easily converted into a class.
 > NOTE: due to my new setup, the executible file lands in the build/debug folder. [".\run1.bat" to launch!]
+
+### 2020/03/25,15:14: hw2, testing in main.cpp
+> NOTE: these functions could be added to the Vector2D struct itself and called in main. Th exercise is doing the testing, which causes them to be remain in main.
+> HW2: finished, branch merging, dev deletion.
