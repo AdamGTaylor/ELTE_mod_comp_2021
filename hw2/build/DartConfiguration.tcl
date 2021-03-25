@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw2
-BuildDirectory: D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw2/build
+SourceDirectory: E:/_ELTE_PHYS_MSC/2_second_semester/korszer/hw2
+BuildDirectory: E:/_ELTE_PHYS_MSC/2_second_semester/korszer/hw2/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: SZABÓ-PC
+Site: DESKTOP-LGVNBTK
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Win32-MSBuild
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "C:/Program Files/CMake/bin/cmake.exe" "D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw2"
+ConfigureCommand: "C:/Program Files/CMake/bin/cmake.exe" "E:/_ELTE_PHYS_MSC/2_second_semester/korszer/hw2"
 MakeCommand: "C:\Program Files\CMake\bin\cmake.exe" --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
@@ -35,22 +35,22 @@ UpdateVersionOnly:
 
 # CVS options
 # Default is "-d -P -A"
-CVSCommand: CVSCOMMAND-NOTFOUND
-CVSUpdateOptions: -d -A -P
+CVSCommand: 
+CVSUpdateOptions: 
 
 # Subversion options
-SVNCommand: SVNCOMMAND-NOTFOUND
+SVNCommand: 
 SVNOptions: 
 SVNUpdateOptions: 
 
 # Git options
-GITCommand: C:/Program Files/Git/cmd/git.exe
+GITCommand: 
 GITInitSubmodules: 
 GITUpdateOptions: 
 GITUpdateCustom: 
 
 # Perforce options
-P4Command: P4COMMAND-NOTFOUND
+P4Command: 
 P4Client: 
 P4Options: 
 P4UpdateOptions: 
@@ -62,13 +62,17 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: D:/Adam/MS VISUAL STUDIO/IDE/VC/Tools/MSVC/14.20.27508/bin/Hostx64/x64/cl.exe
-CompilerVersion: 19.20.27508.1
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/Hostx64/x64/cl.exe
+CompilerVersion: 19.28.29913.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
 ValgrindCommand: 
 ValgrindCommandOptions: 
+DrMemoryCommand: 
+DrMemoryCommandOptions: 
+CudaSanitizerCommand: 
+CudaSanitizerCommandOptions: 
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
 MemoryCheckCommand: MEMORYCHECK_COMMAND-NOTFOUND
@@ -76,12 +80,8 @@ MemoryCheckCommandOptions:
 MemoryCheckSuppressionFile: 
 
 # Coverage
-CoverageCommand: D:/Progik/gcc gnu compiler MingW/bin/gcov.exe
+CoverageCommand: COVERAGE_COMMAND-NOTFOUND
 CoverageExtraFlags: -l
-
-# Cluster commands
-SlurmBatchCommand: SLURM_SBATCH_COMMAND-NOTFOUND
-SlurmRunCommand: SLURM_SRUN_COMMAND-NOTFOUND
 
 # Testing options
 # TimeOut is the amount of time in seconds to wait for processes

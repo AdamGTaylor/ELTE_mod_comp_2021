@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\Adam\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\main.cpp">
+    <ClCompile Include="E:\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\Adam\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\CMakeLists.txt" />
+    <CustomBuild Include="E:\_ELTE_PHYS_MSC\2_second_semester\korszer\hw2\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{B5BD8D05-8936-3E09-B4C2-7E19F0E0BF52}</UniqueIdentifier>
+      <UniqueIdentifier>{17D2D3A7-47B0-3F8D-BADE-A9062E012F6D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
