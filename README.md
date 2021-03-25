@@ -38,7 +38,7 @@ Soon.
 > NOTE: these functions could be added to the Vector2D struct itself and called in main. Th exercise is doing the testing, which causes them to be remain in main.
 
 > HW2: finished, branch merging, dev deletion.
-
+í
 > MESSEGE: `returning addres of loal variable or temporary [...] MSVC(4172)`
 
 
