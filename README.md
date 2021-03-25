@@ -7,6 +7,12 @@ This is a repository dedicated to the course named above. This repository will c
 ```
 Soon.
 ```
+## Dealines
+> HW1: 2020/03/14, 23:59
+> HW2: 2020/03/25, 23:59
+
+> Project: 2020/05/07, 23:59
+
 
 ## Commits
 
@@ -16,3 +22,9 @@ Soon.
 ### 2020/03/13/18:22: hw1 finished almost
 > There some issus with the given codes. After a couple hourse of testing and additional research, the -std=c++11 flag solved most of the issues. The code works right now.
 > NOTE: more polished code could take arguments and use those for setting up precision, tolerance and printed precision.
+
+### 2020/03/25,13:03: hw2, function fixing
+> After some testing, I was able to troubleshoot coupl of things: befriending has to bedone between different classes
+> What's the first difference between struct and class in C++? Their variables visibility.
+> For completition I will use a struct, but it can be easily converted into a class.
+> NOTE: due to my new setup, the executible file lands in the build/debug folder. [".\run1.bat" to launch!]
