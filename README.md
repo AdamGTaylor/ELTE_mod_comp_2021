@@ -32,3 +32,12 @@ Soon.
 ### 2020/03/25,15:14: hw2, testing in main.cpp
 > NOTE: these functions could be added to the Vector2D struct itself and called in main. Th exercise is doing the testing, which causes them to be remain in main.
 > HW2: finished, branch merging, dev deletion.
+> MESSEGE: `returning addres of loal variable or temporary [...] MSVC(4172)`
+
+
+#### Managing branches:
+1. Git checkout new-branch
+2. git add .
+3. git commit -m "Some notes here"
+4. git checkout branch
+5. git merge new-branch
