@@ -41,3 +41,6 @@ Soon.
 3. git commit -m "Some notes here"
 4. git checkout branch
 5. git merge new-branch
+
+1. git branch -d localBranchName
+2. git push origin --delete remoteBranchName
