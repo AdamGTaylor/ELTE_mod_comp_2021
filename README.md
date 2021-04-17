@@ -41,6 +41,13 @@ Soon.
 
 > MESSEGE: `returning addres of loal variable or temporary [...] MSVC(4172)`
 
+### 2020/04/17,15:20: hw3, finished and polished
+
+> NOTE: it does what it should. Tested with more n (10,100,1000,...etc) and even 100 does the %1 error.
+
+### 2020/04/17,15:39: hw3, finished and results in .csv
+
+> NOTE: this is the finishing of hw3, soon to be onto hw4 and project!
 
 #### Managing branches:
 1. Git checkout new-branch
