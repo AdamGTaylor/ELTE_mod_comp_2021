@@ -49,6 +49,12 @@ Soon.
 
 > NOTE: this is the finishing of hw3, soon to be onto hw4 and project!
 
+### 2020/04/25, 21:34, hw4 finshed, result in .csv
+
+> NOTE: hw4 is finished, some idiot forgot to commit and push it... Not me though!
+
+> MESSEGE: MSVC(C4244), conversation between double to int irritates it. Its not a lossless conversation between int and double, understandable warning! (rare)
+
 #### Managing branches:
 1. Git checkout new-branch
 2. git add .
