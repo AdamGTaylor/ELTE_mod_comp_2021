@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\_ELTE_PHYS_MSC\2_second_semester\korszer\hw4\build\CMakeFiles\e1207d07fd6ee29c29650612fe5d0949\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{86EBC3E0-8C10-375F-8927-555B855D4185}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
