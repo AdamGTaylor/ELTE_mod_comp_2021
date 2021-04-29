@@ -1,0 +1,9 @@
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/NightlyMemoryCheck.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/Experimental.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/Continuous.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/Nightly.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/prject.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/PACKAGE.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/RUN_TESTS.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/ALL_BUILD.dir
+E:/_ELTE_PHYS_MSC/2_second_semester/korszer/project/.vscode/build/CMakeFiles/ZERO_CHECK.dir
