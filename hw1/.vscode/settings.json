@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "ctime": "cpp",
-        "iomanip": "cpp",
-        "xlocmon": "cpp",
-        "xloctime": "cpp"
-    }
-}

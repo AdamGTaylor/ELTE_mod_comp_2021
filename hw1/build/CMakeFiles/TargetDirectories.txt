@@ -1,9 +1,0 @@
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/NightlyMemoryCheck.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/Experimental.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/Continuous.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/Nightly.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/hw1-newton.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/PACKAGE.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/RUN_TESTS.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/ALL_BUILD.dir
-D:/Adam/_ELTE_PHYS_MSC/2_second_semester/korszer/hw1/build/CMakeFiles/ZERO_CHECK.dir
