@@ -8,6 +8,14 @@ This is a repository dedicated to the course named above. This repository will c
 
 > Project is initialized. Ideas are written down, R&D soon starting.
 
+### 2021/05/04: RK4 and vectorN header added
+
+> The needed tools for the project are done and somewhat good in this state
+
+> NOTE: no control for unmathcing sizes of different vectors. Using vectorN.hpp is not advised now. Solution is to compare sizes, extend the smaller with zeros and then do the operation.
+
+> More progress later on...
+
 ```
 Soon.
 ```
