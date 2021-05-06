@@ -11,7 +11,7 @@ template<typename T>
 struct Vector2D
 {   
     //I need to set them up! OKEY, USING OPERATORS ARE NOT SAVE OPTIONS FOR SETTING UP VALUES IN A STRUCT
-    //WHAT'S THE POINT HAVING VISIBILITY (PRIVATE, PUBLIC, PROTECTED) THAN?
+    //WHAT'S THE POINT HAVING VISIBILITY (PRIVATE, PUBLIC, PROTECTED) THEN?
     T x,y;
     
     Vector2D( T const& a, T const& b){

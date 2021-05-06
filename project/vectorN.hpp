@@ -36,7 +36,7 @@ template<typename X> std::vector<X> operator-
     for(int i=0; i<std::max(a.size(),b.size()); ++i){
         c[i] = a[i] - b[i];
     }
-    return c
+    return c;
 }
 
 //c = scal*vec
@@ -110,6 +110,28 @@ std::ostream& operator<<(std::ostream& os, const std::vector<X> vec){
 
 //no a/=b, it would only make sense if it were done elementwise
 
+template<typename X>
+X abs_vec(std::vector<X> vector){
+    double len = 0;
+    for(int i=0; i < vector.size(); ++i){
+        len += std::pow(vector[i], 2);
+    }
+    return sqrt(len);
+}
 
+template<typename X> 
+void print_vec(std::vector<X>& v){
+    for(int i=0; i<v.size(); ++i){
+        std::cout<< v[i] << " ";
+    }
+    std::cout<<std::endl;
+}
+
+template<typename X>
+void print_vec_set(std::vector<std::vector<X>>& v_set){
+    for(int i=0; i< v_set.size(); ++i){
+        print_vec(v_set[i]); 
+    }
+}
 
 #endif

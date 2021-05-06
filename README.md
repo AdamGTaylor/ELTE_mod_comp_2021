@@ -16,6 +16,18 @@ This is a repository dedicated to the course named above. This repository will c
 
 > More progress later on...
 
+### 2021/05/06: main frame update
+
+> The needed data structure became real. -> more in report.
+
+> Due to some issue, no rea development.
+
+> This updatecomes with the structure, file loading, printing and state update. Mainly, I am writing and something that is closer to an N-body problem. This means somewhat slower delepoment. Due to it being a many body problem, more data buffers are required with the same structure. Furthermore, for more general usage, the dimensionality can be changed. A coordinate system should be considered: Descartes. This way the TRV will contain vectors, that each have the following structure: (t,x1,x2,x3,v1,v2,v3). The number of vectors in TRV corresponds to body count. Different approuch: (t,r,theta,nu,v,phi,khi) (polar coordinates.). To show the speciality of this binary system, this will be needed during analysis.
+
+> Choosen measurents: kg, AU, year.
+
+> NOTE: no error control, apart from checking if the file is opened.
+
 ```
 Soon.
 ```
