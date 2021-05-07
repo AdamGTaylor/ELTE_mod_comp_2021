@@ -116,10 +116,10 @@ std::ostream& operator<<(std::ostream& os, const std::vector<X> vec){
 
 
 template<typename X>
-X abs_vec(std::vector<X> vector){
+X abs_vec(std::vector<X>& vector){
     double len = 0;
     for(int i=0; i < vector.size(); ++i){
-        len += std::pow(vector[i], 2);
+        len += vector[i] * vector[i];
     }
     return sqrt(len);
 }

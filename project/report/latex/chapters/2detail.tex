@@ -1,0 +1,26 @@
+\section{Leírás}
+
+A szimulációhoz szükséges tehát megfogalmaznunk a szükséges, hogy milyen módon tároljuk az adatokat, milyen koordinátarendszert használunk és hogy milyen kinézetű legyen a kimenet. Legkényelmesebb választás a Descartes koordinátarendszer, melyhez a következő bemeneti formá választottam.
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}  \hline 
+        Tömeg & $r_1$ & $r_2$ & $r_3$ & $v_1$ & $v_2$ & $v_3$  \\ \hline 
+        ... & ... & ... & ... & ... & ... & ... \\  
+    \end{tabular}
+    \caption{Bemeneti fájl várt struktúrája.}
+    \label{tab:input}
+\end{table}
+Ezen adatokkal menthető is az alapállapot, mint t=0 időpontban mért rendszer. Viszont kérdésesek a mennyiségek. Mivel egy csillagrendszer szimulációját hajtom végre, így csillagászatban használt mennyiségek választása hasznos. Tehát a távolság mérése csillagászati egységekben (AU) történik, az idő skála pedig években mérendő. Ennek következtében minden szükséges állandót át kell alakítani, hogy ilyen dimenziójú mennyiségek alkossák. 
+További érdemes ekkor eldönteni is, hogy milyen formában történjen a rendszer egyes állapotaina mentése. Számomra megfelelőnek tünt, hogy minden egyes égitest egy fáljba legyen kimentve. A programm fejlesztése során problémába ütközött a fájlok folytonos nyitvatartása, így minden állapotnak a mentésénél a program újra és újra megnyija majd bezárja azokat. (mivel az ofstream egy olyan pointert ad, ami a fálj elejére mutat, így külön parancsban kell a fájl végére mutató pointert oda adni neki). A kimenő fájlok tehát a következő formátumúak.
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}  \hline 
+        Idő & $r_1$ & $r_2$ & $r_3$ & $v_1$ & $v_2$ & $v_3$  \\ \hline 
+        ... & ... & ... & ... & ... & ... & ... \\  
+    \end{tabular}
+    \caption{Kimeneti fálj struktúrája.}
+    \label{tab:output}
+\end{table}
+Így minden fáljban szerepelni fog háromszor az állapot időpontja. Ha ezen állapotokat egy fáljba rendezzük, akkor lehetőség van ezek összekeverésére, így értelmesebb a szétválasztás. A program a fájlokat a inicializáló fájl alapján, a sorok sorrendjével megfelelően kezeli, így az "output" mappában "body1.csv","body2.csv",...stb. fog megjelenni.
+Ezek után már csak egy lépésben szükséges, régi is új állapotokat kell tárolni, ami egyszerűen kivitelezhető. Mivel három test van, így mindhárom testre a többi által ható erőt kell venni, de mindig a régebbi állapot által. Ha ez megtörtént, akkor a régi állapot felülbírálódik az újjal, majd mentve lesz.

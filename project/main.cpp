@@ -20,11 +20,9 @@
 //my constants in AU and YEAR and kg
 const double PI = 4 * atan(1.0);
 const double G = 1.9838 * std::pow(10,-29);
-const double MPLUSM = 4 * PI * PI;
-const double c = 63197.8;
 std::string path1= "../../../input_data/";
 std::string path2 = "/output/";
-std::string inFileName = "test2";
+std::string inFileName = "test";
 
 //stuff that is needed for sim and init
 //3D 3body sim is burnt into the code but can be changed via arguments
@@ -32,14 +30,16 @@ double T = 1;
 double dt = 1e-4;
 double max_steps;
 int dim = 3;     //3D for default
-int body_count = 2;
+int body_count = 3;
 
 //vectors to hold values
 std::vector<double> masses;
 std::vector<std::vector<double>> trv;  //time,coordinates,velocities... 1+2*D
 std::vector<std::vector<double>> trv_new;
 std::vector<double> dist;
-
+double m_temp1;
+double m_temp2;
+std::vector<double> curCoor;
 
 
 //fail check -> init -> do calcs:
@@ -47,13 +47,13 @@ std::vector<double> dist;
 //saving: each in different files
 
 //i need this strange being...
-template<typename X> void RK4(std::vector<X>& x, X tau, int index){
+template<typename X> void RK4(std::vector<X>& x, X tau){
     //this is fine like this, but the problem is that these could be more compact...
     std::vector<X> k1(x.size()), k2(x.size()), k3(x.size()), k4(x.size());
-    k1 = tau * derivative(x,index);
-    k2 = tau * derivative(x + 0.5 * k1, index);
-    k3 = tau * derivative(x + 0.5 * k2, index);
-    k4 = tau * derivative(x + k3, index);
+    k1 = tau * derivative(x);
+    k2 = tau * derivative(x + 0.5 * k1);
+    k3 = tau * derivative(x + 0.5 * k2);
+    k4 = tau * derivative(x + k3);
     x += (k1 + 2.0 * k2 + 2.0 * k3 + k4)/6.0; 
 }
 
@@ -92,25 +92,6 @@ void reset_mat(std::vector<std::vector<X>> mat){
     }
 }
 
-//updating distances! -NOT NEEDED,NOT USED,INDEXES OUT OF BOUND SOMEWHERE
-//THIS COULD BE HANDY, BUT I DON'T SEE WHERE I GO OUT OF BOUNDS...
-template<typename X> 
-void updateDistances(std::vector<std::vector<X>> mat){
-    std::vector<X> temp_dist(body_count*(body_count-1)/2,0);
-    for(int i = 0; i < body_count-1; ++i){
-        for(int j = i+1; j < body_count-1; ++j){
-            std::vector<double> loc1(dim,0);
-            std::vector<double> loc2(dim,0);
-            for(int k=0; k < dim; k++){
-                loc1[k] = mat[i][1+k];
-                loc2[k] = mat[j][1+k];
-            }
-            temp_dist[i+j] = abs_vec(loc1 - loc2);
-        }
-    }
-    dist = temp_dist;
-}
-
 //updating old to new
 void updateTRV(){
     trv = trv_new;
@@ -118,9 +99,9 @@ void updateTRV(){
 
 //returns only one, but takes to... 3 body -> 6 calls
 // the info carrier has to be used and l
-
+/*ABORT PLAN
 template<typename X>
-std::vector<X> derivative(const std::vector<X>& loc, int& index){
+std::vector<X> derivative(const std::vector<X>& loc, int& k){
     double t = loc[0];  // time sat
     std::vector<X> f(1+2*dim); //set my deriv vec to zero initials
     f[0] = 1;
@@ -128,20 +109,46 @@ std::vector<X> derivative(const std::vector<X>& loc, int& index){
     for(int i = 0; i < dim; ++i){
         f[1+i] = loc[1+dim+i]; // copy vel
     }
-
+    
     for(int i = 0; i < body_count; ++i){
-        for(int j = 0; j < dim; j++){
-            if(i != index){    
-                //count acceleation that affcts this [index] body
-                std::vector<X> r1(3),r2(3);
-                r1[0] = loc[1]; r1[1] = loc[2]; r1[2] = loc[3];
-                r2[0] = trv[i][1]; r2[1] = trv[i][2]; r2[2] = trv[i][3];
-                X rSquare = abs_vec(r1-r2);
-                X rCubed = rSquare * sqrt(rSquare);
+        if(i != k){
+            //std::cout << trv[i][0] << "\t" << k << "\t" << i << std::endl;
+            std::vector<X> r1(3),r2(3);
+            r1[0] = loc[1]; r1[1] = loc[2]; r1[2] = loc[3];
+            r2[0] = trv[i][1]; r2[1] = trv[i][2]; r2[2] = trv[i][3];
+            X rSquare = abs_vec(r1-r2) * abs_vec(r1-r2);
+            X rCubed = rSquare * sqrt(rSquare);
+            for(int j = 0; j < dim; j++){   
+                //count acceleation that affects this [index] body
                 f[1+dim+j] = - G * masses[i] * (loc[1+j] - trv[i][1+j]) / rCubed;
             }
         }
     }
+    return f;
+}*/
+
+//due to this failure: stars act on each other thanon the planet
+template<typename X> 
+std::vector<X> derivative(const std::vector<X>& loc){
+    double t = loc[0];  // time sat
+    std::vector<X> f(1+2*dim,0); //set my deriv vec to zero initials
+    f[0] = 1;
+
+    //locations
+    std::vector<X> r1(3),r2(3),r3(3);
+    r1[0] = loc[1]; r1[1] = loc[2]; r1[2] = loc[3];
+    r2[0] = curCoor[0]; r2[1] = curCoor[1]; r2[2] = curCoor[2];
+    r3[0] = curCoor[3]; r3[1] = curCoor[4]; r3[2] = curCoor[5];
+
+    f[1] = loc[4]; f[2] = loc[5]; f[3] = loc[6]; //velocity copy
+
+    X rSquared1 = abs_vec(r1-r2) * abs_vec(r1-r2);
+    X rSquared2 = abs_vec(r1-r3) * abs_vec(r1-r3);
+    X rCubed1 = rSquared1 * sqrt(rSquared1);
+    X rCubed2 = rSquared2 * sqrt(rSquared2);
+    f[4] = - G * (m_temp1 * (r1[0] - r2[0])/rCubed1 -  m_temp2 * (r1[0] - r3[0])/rCubed2);
+    f[5] = - G * (m_temp1 * (r1[1] - r2[1])/rCubed1 -  m_temp2 * (r1[1] - r3[1])/rCubed2);
+    f[6] = - G * (m_temp1 * (r1[2] - r2[2])/rCubed1 -  m_temp2 * (r1[2] - r3[2])/rCubed2);
     return f;
 }
 
@@ -190,12 +197,31 @@ void initSystem( ){
 
 //after init, this will run and save it
 void runSystem(){
+    //temp_coors;
+    std::vector<double> temp_cor(2*dim,0);
+    curCoor = temp_cor;
     //we already saved starting pos
     double current_time = dt;
     do {
-        for(int i = 0; i < body_count; ++i) {RK4(trv_new[i],dt,i);}
-        for(int i = 0; i < body_count; ++i) save_data(trv[i],i);
+        m_temp1 = 0;
+        m_temp2 = masses[1];
+        curCoor[0] = 0; curCoor[1] = 0; curCoor[2] = 0;
+        curCoor[3] = trv[1][1]; curCoor[4] = trv[1][2]; curCoor[5] = trv[1][3];
+        RK4(trv_new[0],dt);
+
+        m_temp1 = masses[0];
+        m_temp2 = 0;
+        curCoor[0] = trv[0][1]; curCoor[1] = trv[0][2]; curCoor[2] = trv[0][3];
+        curCoor[3] = 0; curCoor[4] = 0; curCoor[5] = 0;
+        RK4(trv_new[1],dt);
+
+        m_temp1 = masses[0];
+        m_temp2 = masses[1];
+        curCoor[0] = trv[0][1]; curCoor[1] = trv[0][2]; curCoor[2] = trv[0][3];
+        curCoor[3] = trv[1][1]; curCoor[4] = trv[1][2]; curCoor[5] = trv[1][3];
+        RK4(trv_new[2],dt);
         updateTRV();
+        for(int i=0;  i < body_count; ++i){ save_data(trv[i],i);}
         current_time += dt;
     } while (current_time < T);
 }
