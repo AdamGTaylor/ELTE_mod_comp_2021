@@ -20,7 +20,7 @@ template<typename X> void print_vector(std::vector<X>& a){
 }
 
 //c = a+b
-template<typename X> std::vector<X> operator+
+template<typename X> std::vector<X> operator +
 (const std::vector<X> &a, const std::vector<X> &b){
     std::vector<X> c(std::max(a.size(),b.size()));
     for(int i=0; i<std::max(a.size(),b.size()); ++i){
@@ -30,7 +30,7 @@ template<typename X> std::vector<X> operator+
 }
 
 //c = a-b
-template<typename X> std::vector<X> operator-
+template<typename X> std::vector<X> operator -
 (const std::vector<X> &a, const std::vector<X> &b){
     std::vector<X> c(std::max(a.size(),b.size()));
     for(int i=0; i<std::max(a.size(),b.size()); ++i){
@@ -39,20 +39,20 @@ template<typename X> std::vector<X> operator-
     return c;
 }
 
-//c = scal*vec
+//c = vec*scal
 template<typename X> std::vector<X> operator *
 (const std::vector<X>& vec, const X scalar){
     std::vector<X> c(vec.size());
-    for(int i = 0; i < vec.size(), ++i ){
+    for(int i = 0; i < vec.size(); ++i ){
         c[i] = scalar * vec[i];
     }
     return c;
 }
-//c = vec*scal
+//c = scal*vec
 template<typename X> std::vector<X> operator *
 (const X scalar,const std::vector<X>& vec){
     std::vector<X> c(vec.size());
-    for(int i = 0; i < vec.size(), ++i ){
+    for(int i = 0; i < vec.size(); ++i ){
         c[i] = scalar * vec[i];
     }
     return c;
@@ -62,43 +62,48 @@ template<typename X> std::vector<X> operator *
 template<typename X> std::vector<X> operator /
 (const std::vector<X>& vec, const X scalar){
     std::vector<X> c(vec.size());
-    for(int i = 0; i < vec.size(), ++i ){
+    for(int i = 0; i < vec.size(); ++i ){
         c[i] = vec[i] / scalar;
     }
     return c;
 }
 
 //a += b
-template<typename X> std::vector<X> operator +=
-(const std::vector<X>&a, const std::vector<X> &b){
-    for(int i=0; i<std::max(a.size(),b.size())){
-        a[i] += b[i]
+template<typename X> void operator +=
+(std::vector<X>&a,std::vector<X> &b){
+    for(int i=0; i<std::max(a.size(),b.size()); ++i){
+        a[i] += b[i];
     }
 }
 
 //a -= b
-template<typename X> std::vector<X> operator -=
-(const std::vector<X>&a, const std::vector<X> &b){
-    for(int i=0; i<std::max(a.size(),b.size())){
-        a[i] -= b[i]
+template<typename X> void operator -=
+(std::vector<X>&a,std::vector<X> &b){
+    for(int i=0; i<std::max(a.size(),b.size()); ++i){
+        a[i] -= b[i];
     }
 }
 
 //a *= b
+/*
 template<typename X> std::vector<X> operator *=
-(const std::vector<X>&a, const std::vector<X> &b){
-    for(int i=0; i<std::max(a.size(),b.size())){
-        a[i] *= b[i]
+(std::vector<X>&a,std::vector<X> &b){
+    for(int i=0; i<std::max(a.size(),b.size()); ++i){
+        a[i] *= b[i];
     }
 }
+*/
 
 //a /= b
+//no a/=b, it would only make sense if it were done elementwise
+/*
 template<typename X> std::vector<X> operator /=
 (const std::vector<X>&a, const std::vector<X> &b){
     for(int i=0; i<std::max(a.size(),b.size())){
         a[i] /= b[i]
     }
 }
+*/
 
 template<typename X>
 std::ostream& operator<<(std::ostream& os, const std::vector<X> vec){
@@ -108,7 +113,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<X> vec){
     return os;
 }
 
-//no a/=b, it would only make sense if it were done elementwise
+
 
 template<typename X>
 X abs_vec(std::vector<X> vector){

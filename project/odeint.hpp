@@ -10,7 +10,7 @@
 //new vector at is not a good choice due to its high memory usage, constant memore allocation
 //where is our very handy vector header?
 //cord, der_func, stepsize
-template<typename X,typename DER, typename TAU> void RK4Step(std::vector<X>& x, TAU& tau, DER der){
+template<typename F, typename X> void RK4Step(F der, std::vector<X>& x, X& tau, int& index){
     //this is fine like this, but the problem is that these could be more compact...
     vector<X> k1(x.size()), k2(x.size()), k3(x.size()), k4(x.size());
     k1 = tau * der(x);
