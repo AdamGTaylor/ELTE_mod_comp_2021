@@ -24,16 +24,15 @@ const double MPLUSM = 4 * PI * PI;
 const double c = 63197.8;
 std::string path1= "../../../input_data/";
 std::string path2 = "/output/";
-std::string inFileName;
-std::string outName;
+std::string inFileName = "test2";
 
 //stuff that is needed for sim and init
 //3D 3body sim is burnt into the code but can be changed via arguments
-double T;
-double dt;
+double T = 1;
+double dt = 1e-4;
 double max_steps;
 int dim = 3;     //3D for default
-int body_count = 3;
+int body_count = 2;
 
 //vectors to hold values
 std::vector<double> masses;
@@ -216,38 +215,27 @@ int main(int argc, char* argv[]) {
     std::cout << "Arg_num: " << argc << std::endl;
     //the operation system is th first in the arg list.
     if(argc = 1){
-        inFileName = "test";
-        T = 1;
-        dt = 1e-4;
-        dim = 3;
-        body_count = 3;
-        std::string filename1 = path1 + inFileName;     
+        std::cout << "3D simulation assumed! Errors may rise!" << std::endl; 
     }else if(argc = 2){
         inFileName = argv[1];
         std::cout << "3D simulation assumed! Errors may rise!" << std::endl;
-        T = 1;
-        dt = 1e-4;
-        dim = 3;
-        body_count = 3;
+
 
     } else if(argc = 3){
         inFileName = argv[1];
         T = atoi(argv[2]);
-        dt = 1e-4;
-        dim = 3;
-        body_count = 3;
+
     } else if(argc = 4){
         inFileName = argv[1];
         T = atoi(argv[2]);
         dt = atof(argv[3]);
-        dim = 3;
-        body_count = 3;
+
     } else if(argc = 5){
         inFileName = argv[1];
         T = atoi(argv[2]);
         dt = atof(argv[3]);
         dim = atoi(argv[4]);
-        body_count = 3;
+
     } else {
         inFileName = argv[1];
         T = atoi(argv[2]);
@@ -255,6 +243,8 @@ int main(int argc, char* argv[]) {
         dim = atoi(argv[4]);
         body_count = atoi(argv[5]);
     }
+    
+    std::string filename1 = path1 + inFileName; 
     max_steps = T/dt;
     print_infos();
 
