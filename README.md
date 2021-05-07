@@ -28,6 +28,12 @@ This is a repository dedicated to the course named above. This repository will c
 
 > NOTE: no error control, apart from checking if the file is opened.
 
+### 2021/05/07: almost works
+
+> The development of the code is almost finished. There are a couple of wierd things it outputs but i need jupyter notebook to print out its results. Ofc, I am running itwith a weird binary system (nothing moves almost), which may be the cause of these weird outputs. It next couple of ours i will further investigate and polish the code and create the report.
+
+> NOTE: finally.
+
 ```
 Soon.
 ```
