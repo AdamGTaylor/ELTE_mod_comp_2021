@@ -26,7 +26,7 @@ std::string inFileName = "test";
 
 //stuff that is needed for sim and init
 //3D 3body sim is burnt into the code but can be changed via arguments
-double T = 1;
+double T = 2;
 double dt = 1e-4;
 double max_steps;
 int dim = 3;     //3D for default
@@ -35,11 +35,10 @@ int body_count = 3;
 //vectors to hold values
 std::vector<double> masses;
 std::vector<std::vector<double>> trv;  //time,coordinates,velocities... 1+2*D
-std::vector<std::vector<double>> trv_new;
+std::vector<std::vector<double>> trv_new; //for the new step.
 std::vector<double> dist;
 double m_temp1;
 double m_temp2;
-std::vector<double> curCoor;
 
 
 //fail check -> init -> do calcs:
@@ -47,13 +46,13 @@ std::vector<double> curCoor;
 //saving: each in different files
 
 //i need this strange being...
-template<typename X> void RK4(std::vector<X>& x, X tau){
+template<typename X> void RK4(std::vector<X>& x, X& tau, int& index){
     //this is fine like this, but the problem is that these could be more compact...
     std::vector<X> k1(x.size()), k2(x.size()), k3(x.size()), k4(x.size());
-    k1 = tau * derivative(x);
-    k2 = tau * derivative(x + 0.5 * k1);
-    k3 = tau * derivative(x + 0.5 * k2);
-    k4 = tau * derivative(x + k3);
+    k1 = tau * derivative(x, index);
+    k2 = tau * derivative(x + 0.5 * k1, index);
+    k3 = tau * derivative(x + 0.5 * k2, index);
+    k4 = tau * derivative(x + k3, index);
     x += (k1 + 2.0 * k2 + 2.0 * k3 + k4)/6.0; 
 }
 
@@ -99,11 +98,11 @@ void updateTRV(){
 
 //returns only one, but takes to... 3 body -> 6 calls
 // the info carrier has to be used and l
-/*ABORT PLAN
+
 template<typename X>
 std::vector<X> derivative(const std::vector<X>& loc, int& k){
     double t = loc[0];  // time sat
-    std::vector<X> f(1+2*dim); //set my deriv vec to zero initials
+    std::vector<X> f(1+2*dim,0); //set my deriv vec to zero initials
     f[0] = 1;
 
     for(int i = 0; i < dim; ++i){
@@ -120,14 +119,15 @@ std::vector<X> derivative(const std::vector<X>& loc, int& k){
             X rCubed = rSquare * sqrt(rSquare);
             for(int j = 0; j < dim; j++){   
                 //count acceleation that affects this [index] body
-                f[1+dim+j] = - G * masses[i] * (loc[1+j] - trv[i][1+j]) / rCubed;
+                f[1+dim+j] += - G * masses[i] * (loc[1+j] - trv[i][1+j]) / rCubed;
             }
         }
     }
     return f;
-}*/
+}
 
 //due to this failure: stars act on each other thanon the planet
+/*
 template<typename X> 
 std::vector<X> derivative(const std::vector<X>& loc){
     double t = loc[0];  // time sat
@@ -150,7 +150,7 @@ std::vector<X> derivative(const std::vector<X>& loc){
     f[5] = - G * (m_temp1 * (r1[1] - r2[1])/rCubed1 -  m_temp2 * (r1[1] - r3[1])/rCubed2);
     f[6] = - G * (m_temp1 * (r1[2] - r2[2])/rCubed1 -  m_temp2 * (r1[2] - r3[2])/rCubed2);
     return f;
-}
+}*/
 
 void initSystem( ){
     std::string filename = path1 + inFileName + ".txt";
@@ -197,32 +197,13 @@ void initSystem( ){
 
 //after init, this will run and save it
 void runSystem(){
-    //temp_coors;
-    std::vector<double> temp_cor(2*dim,0);
-    curCoor = temp_cor;
-    //we already saved starting pos
+    //we already saed the zeroth step
     double current_time = dt;
     do {
-        m_temp1 = 0;
-        m_temp2 = masses[1];
-        curCoor[0] = 0; curCoor[1] = 0; curCoor[2] = 0;
-        curCoor[3] = trv[1][1]; curCoor[4] = trv[1][2]; curCoor[5] = trv[1][3];
-        RK4(trv_new[0],dt);
-
-        m_temp1 = masses[0];
-        m_temp2 = 0;
-        curCoor[0] = trv[0][1]; curCoor[1] = trv[0][2]; curCoor[2] = trv[0][3];
-        curCoor[3] = 0; curCoor[4] = 0; curCoor[5] = 0;
-        RK4(trv_new[1],dt);
-
-        m_temp1 = masses[0];
-        m_temp2 = masses[1];
-        curCoor[0] = trv[0][1]; curCoor[1] = trv[0][2]; curCoor[2] = trv[0][3];
-        curCoor[3] = trv[1][1]; curCoor[4] = trv[1][2]; curCoor[5] = trv[1][3];
-        RK4(trv_new[2],dt);
+        for(int i=0; i < body_count; ++i) {RK4(trv_new[i],dt,i);}
+        for(int i=0; i < body_count; ++i) save_data(trv[i],i);
         updateTRV();
-        for(int i=0;  i < body_count; ++i){ save_data(trv[i],i);}
-        current_time += dt;
+        current_time +=dt; 
     } while (current_time < T);
 }
 

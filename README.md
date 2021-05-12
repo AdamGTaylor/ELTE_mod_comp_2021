@@ -34,9 +34,12 @@ This is a repository dedicated to the course named above. This repository will c
 
 > NOTE: finally.
 
-```
-Soon.
-```
+### 2021/05/12: works, as it should have
+
+> My original approah to this numerical solution proven to be the good one. The issue was that I forgot a plus sign at calculating the derivative's f vector. Without the plus sign, the last interraction is saved. With the plus, the forces / mass accelerations, felt by our currently choosen mass, superposition is given back. This is why it worked with two bodies, and not with three.
+
+>NOTE: i knew from the beginning that there is a typo, rather than a fault at my logic.
+
 ## Dealines
 > HW1: 2021/03/14, 23:59 - Finished
 
