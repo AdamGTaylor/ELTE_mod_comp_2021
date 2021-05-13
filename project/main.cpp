@@ -18,27 +18,27 @@
 //saving: each in different files
 
 //my constants in AU and YEAR and kg
-const double PI = 4 * atan(1.0);
-const double G = 1.9838 * std::pow(10,-29);
-std::string path1= "../../../input_data/";
-std::string path2 = "/output/";
-std::string inFileName = "test";
+const double PI = 4 * atan(1.0);                        //maybe needed for kepler laws: how long is a period?
+const double G = 1.9838 * std::pow(10,-29);             //gravitational constant in AU and YEAR measurements
+const double aupy_to_mps = 4756.46879;                  //AU/YEAR to meter/sec
+const double aupy_to_mps2 = pow(aupy_to_mps,2);         //squared AU/YEAR
+std::string path1= "../../../input_data/";              //input path
+std::string path2 = "/output/";                         //output path
+std::string inFileName = "test";                        //input file name
 
 //stuff that is needed for sim and init
 //3D 3body sim is burnt into the code but can be changed via arguments
-double T = 2;
-double dt = 1e-4;
-double max_steps;
-int dim = 3;     //3D for default
-int body_count = 3;
+double T = 10;          //End of sim. in years
+double dt = 1e-4;       //stepsize 
+double max_steps;       //steps: T/dt
+int dim = 3;            //3D for default
+int body_count = 3;     //3 body for default as test has 3 rows
 
 //vectors to hold values
-std::vector<double> masses;
-std::vector<std::vector<double>> trv;  //time,coordinates,velocities... 1+2*D
-std::vector<std::vector<double>> trv_new; //for the new step.
-std::vector<double> dist;
-double m_temp1;
-double m_temp2;
+std::vector<double> masses;                 //container for masses
+std::vector<std::vector<double>> trv;       //time,coordinates,velocities... 1+2*D
+std::vector<std::vector<double>> trv_new;   //for the new step.
+std::vector<double> dist;                   //distance: not needed, could fasten calc
 
 
 //fail check -> init -> do calcs:
@@ -99,24 +99,25 @@ void updateTRV(){
 //ENERGY CALCULATIONS
 template<typename X> X kineticEnergy(std::vector<X>& veced_data,X& mass){
     std::vector<X> velocity(3,0);
-    for(int i = 0;  i < dim < ++i) velocity[i] = veced_data[1+dim+i];
+    for(int i = 0;  i < dim ; ++i) velocity[i] = veced_data[1+dim+i];
     X kinE = 0.5 * mass * abs_vec(velocity)*abs_vec(velocity);
-    return kinE;
+    return kinE * aupy_to_mps2;
 }
 
-template<typename X> X potentialEnergy(std::vector<X>& veced_data,int& index){
-    std::vector<X> position(3,0);
+template<typename X> 
+X potentialEnergy(std::vector<X>& veced_data,int& index){
     X potE = 0;
-    for(int i = 0;  i < dim < ++i) position[i] = position[1+i];
-    for(int i = 0; i < body_count < ++i){
-        if(index =! i){
-            std::vector<X> r1(3),r2(3);
-            r1[0] = loc[1]; r1[1] = loc[2]; r1[2] = loc[3];
-            r2[0] = trv[i][1]; r2[1] = trv[i][2]; r2[2] = trv[i][3];
-            X potE += - G * masses[index] * masses[i] / abs(r1-r2);
+    for(int i = 0; i < body_count ; ++i){
+        if(index != i){
+            std::vector<X> r1(dim),r2(dim);
+            for(int j = 0; j < dim ; ++j){
+                r1[j] = veced_data[1+j];
+                r2[j] = trv[i][1+j];
+            }
+            potE += - G * masses[index] * masses[i] / abs_vec(r1-r2);
         }
     }
-    return potE;
+    return potE * aupy_to_mps2;
 }
 
 //returns only one, but takes to... 3 body -> 6 calls
@@ -142,6 +143,8 @@ std::vector<X> derivative(const std::vector<X>& loc, int& k){
             X rCubed = rSquare * sqrt(rSquare);
             for(int j = 0; j < dim; j++){   
                 //count acceleation that affects this [index] body
+                //GREAT YOU DING DONG, YOU FORGOT TO SUMMARIZE
+                //f[1+dim+j] = - G * masses[i] * (loc[1+j] - trv[i][1+j]) / rCubed !=
                 f[1+dim+j] += - G * masses[i] * (loc[1+j] - trv[i][1+j]) / rCubed;
             }
         }
@@ -188,21 +191,25 @@ void initSystem( ){
             outs.close();
         }
     } else {
+        std::cout << "Error may be with path: " << filename << std::endl;
         std::cout << "Something went wrong while loading!\nStopping!" << std::endl;
     }
 }
 
 //after init, this will run and save it
+
 void runSystem(){
     //we already saed the zeroth step
     double current_time = dt;
+    std::vector<double> xtndd(1+2*dim+2,0);
     do {
         for(int i=0; i < body_count; ++i) RK4(trv_new[i],dt,i);
         for(int i=0; i < body_count; ++i){
-            std::vector xtndd = trv[i];
-            xtndd.push_back(kineticEnergy(trv[i],masses[i]));
-            xtndd.push_back(potentialEnergy(trv[i],i));
-            save_data(trv[i],i);
+            //copy
+            for(int j = 0; j < trv[i].size(); ++j) xtndd[j] = trv[i][j];
+            xtndd[1+2*dim] = kineticEnergy(trv[i],masses[i]);
+            xtndd[1+2*dim+1] = potentialEnergy(trv[i],i);
+            save_data(xtndd,i);
         }
         updateTRV();
         current_time +=dt; 

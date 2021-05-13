@@ -1,8 +1,8 @@
 \section{Bevezető}
 
-A tárgyhoz kapcsolatos feladatom egy bináris csillagnrendszer vizsgálata volt. A vizsgálathoz szükséges szimulációt C++ nyelven írtam meg és Jupyter Notebook (Python 3) környezetben alkottam meg az ábrákat.
+A tárgyhoz kapcsolatos feladatom egy bináris csillagrendszer vizsgálata volt. A vizsgálathoz szükséges szimulációt C++ nyelven írtam meg és Jupyter Notebook (Python 3) környezetben alkottam meg az ábrákat.
 
-A szimuláció megfelelő megírása előtt szükséges némi fizikai háttér. Mivel ebb az esetben egy három test problémával állunk szemben, így ennek sok esetben nincs analitikus megoldása, numerikus számítások segítségével kell tehát tovább haladnunk. Ehhez szükséges Runge-Kutta 4 lépéses integrátort kell alkalmazni mely várja a megfelelő egyenletek megfogalmazását, így számunkra egyszerűen csak az egyenleteket kell megfogalmazni: ebben az esetben a gravitációs erőtörvényt. A szimulációt érdemes tehát kis időléptékkel léptetni a pontosság miatt.
+A szimuláció megfelelő megírása előtt szükséges némi fizikai háttér. Mivel ebben az esetben egy három test problémával állunk szemben, így ennek sok esetben nincs analitikus megoldása, tehát numerikus számítások segítségével kell tovább haladnunk. Ehhez szükséges Runge-Kutta 4 lépéses integrátort kellett alkalmaznom mely várja a megfelelő egyenletek megfogalmazását, így számunkra a fladat a következő: ebben az esetben a gravitációs erőtörvényt kell jól definiálni. A szimulációt érdemes tehát kis időléptékkel léptetni a pontosság miatt.
 
 A gravitációs erőtörvényt a következőképpen fogalmazhatjuk meg $m_i$ és $m_j$ között:
 \begin{equation}
@@ -14,6 +14,6 @@ F$_{ij}$ osztása m$_j$-vel eredményezi az m$_j$-re ható m$_i$ erő gyorsítá
 \end{equation}
 Potenciális energiát pedig a következő formulával:
 \begin{equation}
-    U_i = \sum_j \gamma \cdot \frac{ \cdot  m_j \cdot m_i}{||r_j - r_i||}
+    U_i = \sum_{j=0; j\neq i}^N \gamma \cdot \frac{m_j \cdot m_i}{||r_j - r_i||}
 \end{equation}
 Ha ezkkel felösszegzünk, akkor a rendszer energia állapotát vizsgálhatjuk.
