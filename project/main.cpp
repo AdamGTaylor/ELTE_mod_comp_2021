@@ -96,6 +96,29 @@ void updateTRV(){
     trv = trv_new;
 }
 
+//ENERGY CALCULATIONS
+template<typename X> X kineticEnergy(std::vector<X>& veced_data,X& mass){
+    std::vector<X> velocity(3,0);
+    for(int i = 0;  i < dim < ++i) velocity[i] = veced_data[1+dim+i];
+    X kinE = 0.5 * mass * abs_vec(velocity)*abs_vec(velocity);
+    return kinE;
+}
+
+template<typename X> X potentialEnergy(std::vector<X>& veced_data,int& index){
+    std::vector<X> position(3,0);
+    X potE = 0;
+    for(int i = 0;  i < dim < ++i) position[i] = position[1+i];
+    for(int i = 0; i < body_count < ++i){
+        if(index =! i){
+            std::vector<X> r1(3),r2(3);
+            r1[0] = loc[1]; r1[1] = loc[2]; r1[2] = loc[3];
+            r2[0] = trv[i][1]; r2[1] = trv[i][2]; r2[2] = trv[i][3];
+            X potE += - G * masses[index] * masses[i] / abs(r1-r2);
+        }
+    }
+    return potE;
+}
+
 //returns only one, but takes to... 3 body -> 6 calls
 // the info carrier has to be used and l
 
@@ -125,32 +148,6 @@ std::vector<X> derivative(const std::vector<X>& loc, int& k){
     }
     return f;
 }
-
-//due to this failure: stars act on each other thanon the planet
-/*
-template<typename X> 
-std::vector<X> derivative(const std::vector<X>& loc){
-    double t = loc[0];  // time sat
-    std::vector<X> f(1+2*dim,0); //set my deriv vec to zero initials
-    f[0] = 1;
-
-    //locations
-    std::vector<X> r1(3),r2(3),r3(3);
-    r1[0] = loc[1]; r1[1] = loc[2]; r1[2] = loc[3];
-    r2[0] = curCoor[0]; r2[1] = curCoor[1]; r2[2] = curCoor[2];
-    r3[0] = curCoor[3]; r3[1] = curCoor[4]; r3[2] = curCoor[5];
-
-    f[1] = loc[4]; f[2] = loc[5]; f[3] = loc[6]; //velocity copy
-
-    X rSquared1 = abs_vec(r1-r2) * abs_vec(r1-r2);
-    X rSquared2 = abs_vec(r1-r3) * abs_vec(r1-r3);
-    X rCubed1 = rSquared1 * sqrt(rSquared1);
-    X rCubed2 = rSquared2 * sqrt(rSquared2);
-    f[4] = - G * (m_temp1 * (r1[0] - r2[0])/rCubed1 -  m_temp2 * (r1[0] - r3[0])/rCubed2);
-    f[5] = - G * (m_temp1 * (r1[1] - r2[1])/rCubed1 -  m_temp2 * (r1[1] - r3[1])/rCubed2);
-    f[6] = - G * (m_temp1 * (r1[2] - r2[2])/rCubed1 -  m_temp2 * (r1[2] - r3[2])/rCubed2);
-    return f;
-}*/
 
 void initSystem( ){
     std::string filename = path1 + inFileName + ".txt";
@@ -200,8 +197,13 @@ void runSystem(){
     //we already saed the zeroth step
     double current_time = dt;
     do {
-        for(int i=0; i < body_count; ++i) {RK4(trv_new[i],dt,i);}
-        for(int i=0; i < body_count; ++i) save_data(trv[i],i);
+        for(int i=0; i < body_count; ++i) RK4(trv_new[i],dt,i);
+        for(int i=0; i < body_count; ++i){
+            std::vector xtndd = trv[i];
+            xtndd.push_back(kineticEnergy(trv[i],masses[i]));
+            xtndd.push_back(potentialEnergy(trv[i],i));
+            save_data(trv[i],i);
+        }
         updateTRV();
         current_time +=dt; 
     } while (current_time < T);
